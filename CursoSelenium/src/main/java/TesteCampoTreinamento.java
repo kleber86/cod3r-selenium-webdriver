@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -31,6 +32,32 @@ public class TesteCampoTreinamento {
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Test");
 		assertEquals("Test", driver.findElement(By.id("elementosForm:sobrenome")).getAttribute("value"));
 	
+		driver.close();
+	}
+	
+	@Test
+	public void deveInteragirComRadioButton() {
+		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().setSize(new Dimension(900, 600));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+		
+		driver.findElement(By.id("elementosForm:sexo:0")).click();
+		assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
+		
+		driver.close();
+	}
+	
+	@Test
+	public void deveInteragirComCheckbox() {
+		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().setSize(new Dimension(900, 600));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+		
+		driver.findElement(By.id("elementosForm:comidaFavorita:0")).click();
+		assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:0")).isSelected());
+		
 		driver.close();
 	}
 }
