@@ -125,4 +125,17 @@ public class TesteCampoTreinamento {
 		assertEquals(3, todosOsValores.size());
 		driver.close();
 	}
+	
+	@Test
+	public void deveInteragirComBotoes() {
+		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().setSize(new Dimension(900, 600));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+	
+		WebElement botao = driver.findElement(By.id("buttonSimple"));
+		botao.click();
+		assertEquals("Obrigado!", botao.getAttribute("value"));
+		driver.close();
+	}
 }
