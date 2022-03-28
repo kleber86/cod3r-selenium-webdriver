@@ -106,4 +106,23 @@ public class TesteCampoTreinamento {
 		assertTrue(encontrou);
 		driver.close();
 	}
+	
+	@Test
+	public void deveVerificarValoresComboMultiplo() {
+		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().setSize(new Dimension(900, 600));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+		
+		WebElement elemento = driver.findElement(By.id("elementosForm:esportes"));
+		Select combo = new Select(elemento);
+		
+		combo.selectByVisibleText("Natacao");
+		combo.selectByVisibleText("Futebol");
+		combo.selectByVisibleText("Karate");
+		
+		List<WebElement> todosOsValores = combo.getAllSelectedOptions();
+		assertEquals(3, todosOsValores.size());
+		driver.close();
+	}
 }
