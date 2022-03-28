@@ -1,8 +1,10 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -137,5 +139,17 @@ public class TesteCampoTreinamento {
 		botao.click();
 		assertEquals("Obrigado!", botao.getAttribute("value"));
 		driver.close();
+	}
+	
+	@Test
+	@Ignore
+	public void deveInteragirComLinks() {
+		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().setSize(new Dimension(900, 600));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+	
+		driver.findElement(By.linkText("Voltar")).click();
+		fail();
 	}
 }
