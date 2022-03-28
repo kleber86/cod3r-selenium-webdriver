@@ -142,7 +142,6 @@ public class TesteCampoTreinamento {
 	}
 	
 	@Test
-	@Ignore
 	public void deveInteragirComLinks() {
 		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
 		WebDriver driver = new FirefoxDriver();
@@ -150,6 +149,21 @@ public class TesteCampoTreinamento {
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
 	
 		driver.findElement(By.linkText("Voltar")).click();
-		fail();
+		assertEquals("Voltou!", driver.findElement(By.id("resultado")).getText());
+		
+		driver.close();
+	}
+	
+	@Test
+	public void deveBuscarTextosNaPagina() {
+		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().setSize(new Dimension(900, 600));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+	
+		assertEquals("Campo de Treinamento", driver.findElement(By.tagName("h3")).getText());
+		assertEquals("Cuidado onde clica, muitas armadilhas...", driver.findElement(By.className("facilAchar")).getText());
+		
+		driver.close();
 	}
 }
