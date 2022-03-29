@@ -24,6 +24,30 @@ public class TesteAlert {
 		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys(texto);
 		
-		//driver.close();
+		driver.close();
+	}
+	
+	@Test
+	public void deveInteragirComAlertConfirm() {
+		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().setSize(new Dimension(1000, 800));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+	
+		driver.findElement(By.id("confirm")).click();
+		Alert alerta = driver.switchTo().alert();
+		assertEquals("Confirm Simples", alerta.getText());
+		alerta.accept();
+		assertEquals("Confirmado", alerta.getText());
+		alerta.accept();
+		
+		driver.findElement(By.id("confirm")).click();
+		alerta = driver.switchTo().alert();
+		assertEquals("Confirm Simples", alerta.getText());
+		alerta.dismiss();
+		assertEquals("Negado", alerta.getText());
+		alerta.dismiss();
+		
+		driver.close();
 	}
 }
