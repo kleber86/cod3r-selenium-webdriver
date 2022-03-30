@@ -7,7 +7,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class TesteFrames {
+public class TesteFramesEJanelas {
 
 	@Test
 	public void devePreencherFrames() {
@@ -29,5 +29,20 @@ public class TesteFrames {
 		driver.findElement(By.id("elementosForm:nome")).sendKeys(msg);
 		
 		driver.close();
+	}
+	
+	@Test
+	public void devePreencherJanelas() {
+		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().setSize(new Dimension(1000, 800));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+
+		driver.findElement(By.id("buttonPopUpEasy")).click();
+		driver.switchTo().window("Popup");
+		driver.findElement(By.tagName("textarea")).sendKeys("Deu certo?");
+		driver.close();
+		driver.switchTo().window("");
+		driver.findElement(By.tagName("textarea")).sendKeys("e agora?");
 	}
 }
