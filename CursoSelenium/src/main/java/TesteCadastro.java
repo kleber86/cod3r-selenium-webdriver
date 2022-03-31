@@ -1,5 +1,7 @@
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -10,13 +12,24 @@ import org.openqa.selenium.support.ui.Select;
 
 public class TesteCadastro {
 
+	private WebDriver driver;
+	
+	@Before
+	public void inicializa() {
+		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
+		driver = new FirefoxDriver();
+		driver.manage().window().setSize(new Dimension(900, 600));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+	}
+	
+	@After
+	public void finaliza() {
+		driver.close();
+	}
+	
+
 	@Test
 	public void devePreencherOFormulario() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1000, 800));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-	
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Kleber");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Alves");
 		
@@ -39,63 +52,37 @@ public class TesteCadastro {
 		assertEquals("Pizza", driver.findElement(By.cssSelector("#descComida span")).getText());
 		assertEquals("superior", driver.findElement(By.cssSelector("#descEscolaridade span")).getText());
 		assertEquals("Natacao", driver.findElement(By.cssSelector("#descEsportes span")).getText());
-		
-		driver.close();
-		
 	}
 	
 	@Test
 	public void deveValidarNomeObrigatorio() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1000, 800));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-	
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		Alert alert = driver.switchTo().alert();
 		assertEquals("Nome eh obrigatorio", alert.getText());
 		alert.accept();
-		driver.close();
 	}
 	
 	@Test
 	public void deveValidarSobreNomeObrigatorio() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1000, 800));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-	
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Kleber");
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		Alert alert = driver.switchTo().alert();
 		assertEquals("Sobrenome eh obrigatorio", alert.getText());
 		alert.accept();
-		driver.close();
 	}
 	
 	@Test
 	public void deveValidarSexoObrigatorio() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1000, 800));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-	
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Kleber");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Alves");
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		Alert alert = driver.switchTo().alert();
 		assertEquals("Sexo eh obrigatorio", alert.getText());
 		alert.accept();
-		driver.close();
 	}
 	
 	@Test
 	public void deveValidarComidaVegetariana() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1000, 800));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-	
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Kleber");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Alves");
 		driver.findElement(By.id("elementosForm:sexo")).click();
@@ -105,16 +92,10 @@ public class TesteCadastro {
 		Alert alert = driver.switchTo().alert();
 		assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
 		alert.accept();
-		driver.close();
 	}
 	
 	@Test
 	public void deveValidarEsportes() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1000, 800));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-	
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Kleber");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Alves");
 		driver.findElement(By.id("elementosForm:sexo")).click();
@@ -128,6 +109,5 @@ public class TesteCadastro {
 		Alert alert = driver.switchTo().alert();
 		assertEquals("Voce faz esporte ou nao?", alert.getText());
 		alert.accept();
-		driver.close();
 	}
 }

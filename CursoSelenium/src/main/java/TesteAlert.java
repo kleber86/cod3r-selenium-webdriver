@@ -1,5 +1,7 @@
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -9,13 +11,23 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TesteAlert {
 
+	private WebDriver driver;
+	
+	@Before
+	public void inicializa() {
+		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
+		driver = new FirefoxDriver();
+		driver.manage().window().setSize(new Dimension(900, 600));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+	}
+	
+	@After
+	public void finaliza() {
+		driver.close();
+	}
+	
 	@Test
 	public void deveInteragirComAlertSimples() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1000, 800));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-	
 		driver.findElement(By.id("alert")).click();
 		Alert alert = driver.switchTo().alert();
 		String texto = alert.getText();
@@ -23,17 +35,10 @@ public class TesteAlert {
 		alert.accept();
 		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys(texto);
-		
-		driver.close();
 	}
 	
 	@Test
 	public void deveInteragirComAlertConfirm() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1000, 800));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-	
 		driver.findElement(By.id("confirm")).click();
 		Alert alerta = driver.switchTo().alert();
 		assertEquals("Confirm Simples", alerta.getText());
@@ -47,17 +52,10 @@ public class TesteAlert {
 		alerta.dismiss();
 		assertEquals("Negado", alerta.getText());
 		alerta.dismiss();
-		
-		driver.close();
 	}
 	
 	@Test
 	public void deveInteragirComAlertPrompt() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1000, 800));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-	
 		driver.findElement(By.id("prompt")).click();
 		Alert alerta = driver.switchTo().alert();
 		assertEquals("Digite um numero", alerta.getText());
@@ -67,7 +65,5 @@ public class TesteAlert {
 		alerta.accept();
 		assertEquals(":D", alerta.getText());
 		alerta.accept();
-		
-		driver.close();
 	}
 }
