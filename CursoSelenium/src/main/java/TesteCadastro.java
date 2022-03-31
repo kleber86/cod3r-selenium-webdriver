@@ -40,7 +40,7 @@ public class TesteCadastro {
 		dsl.clicarRadio("elementosForm:comidaFavorita:2");
 		
 		dsl.selecionarCombo("elementosForm:escolaridade", "Superior");
-		dsl.selecionarCombo("elementosForm:esportes", "Superior");
+		dsl.selecionarCombo("elementosForm:esportes", "Natacao");
 		
 		dsl.clicarBotao("elementosForm:cadastrar");
 		
@@ -84,9 +84,9 @@ public class TesteCadastro {
 	public void deveValidarComidaVegetariana() {
 		dsl.escreve("elementosForm:nome", "Kleber");
 		dsl.escreve("elementosForm:sobrenome", "Alves");
-		dsl.clicarBotao("elementosForm:cadastrar");
-		dsl.clicarBotao("elementosForm:comidaFavorita:3");
-		dsl.clicarBotao("elementosForm:comidaFavorita:0");
+		dsl.clicarRadio("elementosForm:sexo:0");
+		dsl.clicarRadio("elementosForm:comidaFavorita:3");
+		dsl.clicarRadio("elementosForm:comidaFavorita:0");
 		
 		dsl.clicarBotao("elementosForm:cadastrar");
 		Alert alert = driver.switchTo().alert();
@@ -98,8 +98,8 @@ public class TesteCadastro {
 	public void deveValidarEsportes() {
 		dsl.escreve("elementosForm:nome", "Kleber");
 		dsl.escreve("elementosForm:sobrenome", "Alves");
-		dsl.clicarBotao("elementosForm:cadastrar");
-		dsl.clicarBotao("elementosForm:comidaFavorita:0");
+		dsl.clicarRadio("elementosForm:sexo:0");
+		dsl.clicarRadio("elementosForm:comidaFavorita:0");
 		
 		Select combo = new Select(driver.findElement(By.id("elementosForm:esportes")));
 		combo.selectByVisibleText("Karate");
