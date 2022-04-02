@@ -24,7 +24,7 @@ public class TesteCampoTreinamento {
 	public void inicializa() {
 		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
 		driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(900, 600));
+		driver.manage().window().fullscreen();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
 		dsl = new DSL(driver);
 	}
@@ -123,5 +123,10 @@ public class TesteCampoTreinamento {
 		//js.executeScript("document.getElementById('elementosForm:sobrenome').type = 'radio'");
 		WebElement element = driver.findElement(By.id("elementosForm:nome"));
 		js.executeScript("arguments[0].style.border = arguments[1]", element, "solid 5px red");
+	}
+	
+	@Test
+	public void deveClicarBotaoTabela() {
+		dsl.clicarBotaoTabela("Escolaridade", "Mestrado", "Radio", "elementosForm:tableUsuarios");
 	}
 }
