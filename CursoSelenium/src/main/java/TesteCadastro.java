@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,6 +15,7 @@ public class TesteCadastro {
 
 	private WebDriver driver;
 	private DSL dsl;
+	private CampoTreinamentoPage page;
 	
 	@Before
 	public void inicializa() {
@@ -22,6 +24,7 @@ public class TesteCadastro {
 		driver.manage().window().setSize(new Dimension(900, 600));
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
 		dsl = new DSL(driver);
+		page = new CampoTreinamentoPage(driver);
 	}
 	
 	@After
@@ -32,20 +35,26 @@ public class TesteCadastro {
 
 	@Test
 	public void devePreencherOFormulario() {
-		dsl.escreve("elementosForm:nome", "Kleber");
-		dsl.escreve("elementosForm:sobrenome", "Alves");
+		page.setNome("Kleber");
+		page.setSobreNome("Alves");
 		
-		dsl.clicarRadio("elementosForm:sexo:0");
+		page.setSexoMasculino();
+		page.setPizza();
 		
-		dsl.clicarRadio("elementosForm:comidaFavorita:2");
+		page.setEscolaridade("Superior");
+		page.setEsportes("Natacao");
 		
-		dsl.selecionarCombo("elementosForm:escolaridade", "Superior");
-		dsl.selecionarCombo("elementosForm:esportes", "Natacao");
+		page.cadastrar();
 		
-		dsl.clicarBotao("elementosForm:cadastrar");
+		assertTrue(page.obterResultadoCadastro().startsWith("Cadastrado!"));
+		assertTrue(page.obterNomeCadastro().endsWith("Kleber"));
+		assertEquals("Sobrenome: Alves", page.obterSobreNomeCadastro());
+		assertEquals("Sexo: Masculino", page.obterSexoCadastro());
+		assertEquals("Comida: Pizza", page.obterComidaCadastro());
+		assertEquals("Escolaridade: superior", page.obterEscolaridadeCadastro());
+		assertEquals("Esportes: Natacao", page.obterEsporteCadastro());
 		
-		assertEquals("Cadastrado!", driver.findElement(By.cssSelector("#resultado span")).getText());
-		assertEquals("Kleber", driver.findElement(By.cssSelector("#descNome span")).getText());
+		
 		assertEquals("Alves", driver.findElement(By.cssSelector("#descSobrenome span")).getText());
 		assertEquals("Masculino", driver.findElement(By.cssSelector("#descSexo span")).getText());
 		assertEquals("Pizza", driver.findElement(By.cssSelector("#descComida span")).getText());
@@ -55,7 +64,7 @@ public class TesteCadastro {
 	
 	@Test
 	public void deveValidarNomeObrigatorio() {
-		dsl.clicarBotao("elementosForm:cadastrar");
+		page.cadastrar();
 		Alert alert = driver.switchTo().alert();
 		assertEquals("Nome eh obrigatorio", alert.getText());
 		alert.accept();
@@ -63,8 +72,8 @@ public class TesteCadastro {
 	
 	@Test
 	public void deveValidarSobreNomeObrigatorio() {
-		dsl.escreve("elementosForm:nome", "Kleber");
-		dsl.clicarBotao("elementosForm:cadastrar");
+		page.setNome("Kleber");
+		page.cadastrar();
 		Alert alert = driver.switchTo().alert();
 		assertEquals("Sobrenome eh obrigatorio", alert.getText());
 		alert.accept();
@@ -72,9 +81,9 @@ public class TesteCadastro {
 	
 	@Test
 	public void deveValidarSexoObrigatorio() {
-		dsl.escreve("elementosForm:nome", "Kleber");
-		dsl.escreve("elementosForm:sobrenome", "Alves");
-		dsl.clicarBotao("elementosForm:cadastrar");
+		page.setNome("Kleber");
+		page.setSobreNome("Alves");
+		page.cadastrar();
 		Alert alert = driver.switchTo().alert();
 		assertEquals("Sexo eh obrigatorio", alert.getText());
 		alert.accept();
@@ -82,13 +91,13 @@ public class TesteCadastro {
 	
 	@Test
 	public void deveValidarComidaVegetariana() {
-		dsl.escreve("elementosForm:nome", "Kleber");
-		dsl.escreve("elementosForm:sobrenome", "Alves");
-		dsl.clicarRadio("elementosForm:sexo:0");
-		dsl.clicarRadio("elementosForm:comidaFavorita:3");
-		dsl.clicarRadio("elementosForm:comidaFavorita:0");
-		
-		dsl.clicarBotao("elementosForm:cadastrar");
+		page.setNome("Kleber");
+		page.setSobreNome("Alves");
+		page.setSexoFeminino();
+		page.setComidaCarne();
+		page.setComidaVegetariano();
+		page.cadastrar();
+
 		Alert alert = driver.switchTo().alert();
 		assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
 		alert.accept();
@@ -96,16 +105,13 @@ public class TesteCadastro {
 	
 	@Test
 	public void deveValidarEsportes() {
-		dsl.escreve("elementosForm:nome", "Kleber");
-		dsl.escreve("elementosForm:sobrenome", "Alves");
-		dsl.clicarRadio("elementosForm:sexo:0");
-		dsl.clicarRadio("elementosForm:comidaFavorita:0");
+		page.setNome("Kleber");
+		page.setSobreNome("Alves");
+		page.setSexoFeminino();
+		page.setComidaCarne();
+		page.setEsportes("Natacao", "O que eh esporte?");
+		page.cadastrar();
 		
-		Select combo = new Select(driver.findElement(By.id("elementosForm:esportes")));
-		combo.selectByVisibleText("Karate");
-		combo.selectByVisibleText("O que eh esporte?");
-		
-		dsl.clicarBotao("elementosForm:cadastrar");
 		Alert alert = driver.switchTo().alert();
 		assertEquals("Voce faz esporte ou nao?", alert.getText());
 		alert.accept();

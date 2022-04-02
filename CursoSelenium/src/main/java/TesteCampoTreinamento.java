@@ -86,7 +86,7 @@ public class TesteCampoTreinamento {
 	public void deveVerificarValoresComboMultiplo() {
 		dsl.selecionarCombo("elementosForm:esportes", "Natacao");
 		dsl.selecionarCombo("elementosForm:esportes", "Corrida");
-		dsl.selecionarCombo("elementosForm:esportes", "O que eh esportes?");
+		dsl.selecionarCombo("elementosForm:esportes", "O que eh esporte?");
 		
 		WebElement elemento = driver.findElement(By.id("elementosForm:esportes"));
 		Select combo = new Select(elemento);
