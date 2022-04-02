@@ -24,8 +24,12 @@ public class DSL {
 		return driver.findElement(By.id(id_campo)).getAttribute("value");
 	}
 	
-	public void clicarRadio(String radio) {
-		driver.findElement(By.id(radio)).click();
+	public void clicarRadio(By by) {
+		driver.findElement(by).click();
+	}
+	
+	public void clicarRadio(String id) {
+		clicarRadio(By.id(id));
 	}
 	
 	public boolean isRadioMarcado(String id) {
