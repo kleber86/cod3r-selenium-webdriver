@@ -42,13 +42,13 @@ public class TesteCadastro {
 		
 		page.cadastrar();
 		
-		assertTrue(page.obterResultadoCadastro().startsWith("Cadastrado!"));
-		assertTrue(page.obterNomeCadastro().endsWith("Kleber"));
-		assertEquals("Sobrenome: Alves", page.obterSobreNomeCadastro());
-		assertEquals("Sexo: Masculino", page.obterSexoCadastro());
-		assertEquals("Comida: Pizza", page.obterComidaCadastro());
-		assertEquals("Escolaridade: superior", page.obterEscolaridadeCadastro());
-		assertEquals("Esportes: Natacao", page.obterEsporteCadastro());
+		assertEquals("Cadastrado!", page.obterResultadoCadastro());
+		assertEquals("Kleber", page.obterNomeCadastro());
+		assertEquals("Alves", page.obterSobreNomeCadastro());
+		assertEquals("Masculino", page.obterSexoCadastro());
+		assertEquals("Pizza", page.obterComidaCadastro());
+		assertEquals("superior", page.obterEscolaridadeCadastro());
+		assertEquals("Natacao", page.obterEsporteCadastro());
 		
 		
 		assertEquals("Alves", driver.findElement(By.cssSelector("#descSobrenome span")).getText());

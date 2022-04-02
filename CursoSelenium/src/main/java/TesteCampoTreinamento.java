@@ -31,7 +31,7 @@ public class TesteCampoTreinamento {
 	
 	@After
 	public void finaliza() {
-		//driver.close();
+		driver.close();
 	}
 	
 	@Test
