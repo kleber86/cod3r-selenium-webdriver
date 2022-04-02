@@ -1,4 +1,6 @@
+import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -53,5 +55,10 @@ public class DSL {
 	
 	public String obterTexto(String id) {
 		return obterTexto(By.id(id));
+	}
+	
+	public Object execuJS(String cmd, Object... param) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		return js.executeScript(cmd, param);
 	}
 }
