@@ -7,11 +7,13 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TesteFramesEJanelas {
 
 	private WebDriver driver;
+	private DSL dsl;
 	
 	@Before
 	public void inicializa() {
@@ -19,6 +21,7 @@ public class TesteFramesEJanelas {
 		driver = new FirefoxDriver();
 		driver.manage().window().setSize(new Dimension(900, 600));
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+		dsl = new DSL(driver);
 	}
 	
 	@After
@@ -61,5 +64,16 @@ public class TesteFramesEJanelas {
 
 		driver.switchTo().window(((String)driver.getWindowHandles().toArray()[0]));
 		driver.findElement(By.tagName("textarea")).sendKeys("E agora?");
+	}
+	
+	@Test
+	public void deveInteragirComFrameEscondido() {
+		WebElement frame = driver.findElement(By.id("frame2"));
+		dsl.execuJS("window.scrollBy(0, arguments[0])", frame.getLocation().y);
+		dsl.entrarFrame("frame2");
+		dsl.clicarBotao("frameButton");
+		
+		String msg = dsl.alertaObterTextoAceito();
+		assertEquals("Frame OK!", msg);
 	}
 }

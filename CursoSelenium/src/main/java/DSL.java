@@ -1,4 +1,5 @@
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -60,5 +61,16 @@ public class DSL {
 	public Object execuJS(String cmd, Object... param) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		return js.executeScript(cmd, param);
+	}
+
+	public void entrarFrame(String id) {
+		driver.switchTo().frame(id);
+	}
+
+	public String alertaObterTextoAceito() {
+		Alert alert = driver.switchTo().alert();
+		String valor = alert.getText();
+		alert.accept();
+		return valor;
 	}
 }
