@@ -1,13 +1,11 @@
-import static org.junit.Assert.assertEquals;
+import static core.DriverFactory.getDriver;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TestePrime {
 
@@ -17,10 +15,8 @@ public class TestePrime {
 	@Before
 	public void inicializa() {
 		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1200, 900));
-		driver.get("https://www.primefaces.org/showcase/ui/input/oneRadio.xhtml");
-		dsl = new DSL(driver);
+		getDriver().get("https://www.primefaces.org/showcase/ui/input/oneRadio.xhtml");
+		dsl = new DSL();
 	}
 	
 	@After

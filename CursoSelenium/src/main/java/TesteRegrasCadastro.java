@@ -1,3 +1,4 @@
+import static core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -12,9 +13,9 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+
+import core.DriverFactory;
 
 @RunWith(Parameterized.class)
 public class TesteRegrasCadastro {
@@ -43,17 +44,14 @@ public class TesteRegrasCadastro {
 	
 	@Before
 	public void inicializa() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(900, 600));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-		dsl = new DSL(driver);
-		page = new CampoTreinamentoPage(driver);
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+		dsl = new DSL();
+		page = new CampoTreinamentoPage();
 	}
 	
 	@After
 	public void finaliza() {
-		driver.close();
+		DriverFactory.killDriver();
 	}
 	
 	@Parameters
@@ -86,7 +84,7 @@ public class TesteRegrasCadastro {
 		page.cadastrar();
 		
 		System.out.println(msg);
-		Alert alert = driver.switchTo().alert();
+		Alert alert = getDriver().switchTo().alert();
 		assertEquals(msg, alert.getText());
 		alert.accept();
 	}

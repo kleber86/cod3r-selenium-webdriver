@@ -1,3 +1,4 @@
+import static core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
@@ -16,14 +17,12 @@ public class TesteAlert {
 	@Before
 	public void inicializa() {
 		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(900, 600));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
 	}
 	
 	@After
 	public void finaliza() {
-		driver.close();
+		core.DriverFactory.killDriver();
 	}
 	
 	@Test

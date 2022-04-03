@@ -1,19 +1,17 @@
+import static core.DriverFactory.getDriver;
+import static core.DriverFactory.killDriver;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class TesteCampoTreinamento {
@@ -22,16 +20,13 @@ public class TesteCampoTreinamento {
 	
 	@Before
 	public void inicializa() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-		driver = new FirefoxDriver();
-		driver.manage().window().fullscreen();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-		dsl = new DSL(driver);
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
+		dsl = new DSL();
 	}
 	
 	@After
 	public void finaliza() {
-		driver.close();
+		killDriver();
 	}
 	
 	@Test
@@ -49,7 +44,7 @@ public class TesteCampoTreinamento {
 	@Test
 	public void deveInteragirComRadioButton() {
 		dsl.clicarRadio("elementosForm:sexo:0");
-		assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
+		assertTrue(getDriver().findElement(By.id("elementosForm:sexo:0")).isSelected());
 	}
 	
 	@Test
@@ -66,7 +61,7 @@ public class TesteCampoTreinamento {
 	
 	@Test
 	public void deveVerificarValoresCombo() {
-		WebElement elemento = driver.findElement(By.id("elementosForm:escolaridade"));
+		WebElement elemento = getDriver().findElement(By.id("elementosForm:escolaridade"));
 		Select combo = new Select(elemento);
 		List<WebElement> options = combo.getOptions();
 		
@@ -89,7 +84,7 @@ public class TesteCampoTreinamento {
 		dsl.selecionarCombo("elementosForm:esportes", "Corrida");
 		dsl.selecionarCombo("elementosForm:esportes", "O que eh esporte?");
 		
-		WebElement elemento = driver.findElement(By.id("elementosForm:esportes"));
+		WebElement elemento = getDriver().findElement(By.id("elementosForm:esportes"));
 		Select combo = new Select(elemento);
 		
 		List<WebElement> todosOsValores = combo.getAllSelectedOptions();
@@ -100,7 +95,7 @@ public class TesteCampoTreinamento {
 	public void deveInteragirComBotoes() {
 		dsl.clicarBotao("buttonSimple");
 
-		WebElement botao = driver.findElement(By.id("buttonSimple"));
+		WebElement botao = getDriver().findElement(By.id("buttonSimple"));
 		assertEquals("Obrigado!", botao.getAttribute("value"));
 	}
 	
@@ -119,9 +114,9 @@ public class TesteCampoTreinamento {
 	
 	@Test
 	public void testJavaScript() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		//js.executeScript("document.getElementById('elementosForm:sobrenome').type = 'radio'");
-		WebElement element = driver.findElement(By.id("elementosForm:nome"));
+		WebElement element = getDriver().findElement(By.id("elementosForm:nome"));
 		js.executeScript("arguments[0].style.border = arguments[1]", element, "solid 5px red");
 	}
 	

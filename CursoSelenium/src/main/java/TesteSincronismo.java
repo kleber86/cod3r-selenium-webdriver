@@ -22,7 +22,7 @@ public class TesteSincronismo {
 		driver = new FirefoxDriver();
 		driver.manage().window().setSize(new Dimension(1200, 900));
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
-		dsl = new DSL(driver);
+		dsl = new DSL();
 	}
 	
 	@After
