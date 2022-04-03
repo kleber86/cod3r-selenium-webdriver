@@ -43,7 +43,6 @@ public class TestePrime {
 		
 		dsl.clicarRadio(By.xpath("//*[@id='j_idt311:option_label']/../div/span"));
 		dsl.clicarRadio(By.xpath("//*[@id='j_idt311:option_1']"));
-		System.out.println(":::::::::::::::::" + driver.findElement(By.xpath("//*[@id='j_idt311:option_input']/option[2]")).getText());
 	}
 	
 }
