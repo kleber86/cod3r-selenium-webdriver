@@ -22,4 +22,15 @@ public class ContaTest extends BaseTest{
 		
 		assertEquals("Conta adicionada com sucesso!", contasPage.obterMensagemSucesso());
 	}
+	
+	@Test
+	public void testAlterarConta() {
+		menuPage.acessarTelaListarConta();
+		
+		contasPage.clicarAlteraConta("Conta de Teste");
+		contasPage.setNome("Conta de Teste Alterada");
+		contasPage.salvar();
+		
+		assertEquals("Conta alterada com sucesso!", contasPage.obterMensagemSucesso());
+	}
 }
