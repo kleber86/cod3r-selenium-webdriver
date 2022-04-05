@@ -9,6 +9,8 @@ public class BaseTest extends BasePage{
 	
 	@After
 	public void finaliza() {
-		killDriver();
+		if(Propriedades.FECHAR_BROWSER) {
+			killDriver();
+		}
 	}
 }
