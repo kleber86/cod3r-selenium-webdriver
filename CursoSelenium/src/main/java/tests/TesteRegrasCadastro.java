@@ -1,3 +1,4 @@
+package tests;
 import static core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
 
@@ -5,7 +6,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,10 +15,12 @@ import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 
-import core.DriverFactory;
+import core.BaseTest;
+import core.DSL;
+import page.CampoTreinamentoPage;
 
 @RunWith(Parameterized.class)
-public class TesteRegrasCadastro {
+public class TesteRegrasCadastro extends BaseTest{
 
 	private WebDriver driver;
 	private DSL dsl;
@@ -48,11 +50,7 @@ public class TesteRegrasCadastro {
 		dsl = new DSL();
 		page = new CampoTreinamentoPage();
 	}
-	
-	@After
-	public void finaliza() {
-		DriverFactory.killDriver();
-	}
+
 	
 	@Parameters
 	public static Collection<Object[]> getCollection(){

@@ -1,3 +1,4 @@
+package tests;
 import static core.DriverFactory.getDriver;
 import static core.DriverFactory.killDriver;
 import static org.junit.Assert.assertEquals;
@@ -9,6 +10,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import core.DSL;
+import page.CampoTreinamentoPage;
 
 public class TesteAjax {
 

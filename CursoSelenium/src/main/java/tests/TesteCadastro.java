@@ -1,28 +1,22 @@
+package tests;
 import static core.DriverFactory.getDriver;
-import static core.DriverFactory.killDriver;
 import static org.junit.Assert.assertEquals;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TesteCadastro {
+import core.BaseTest;
+import page.CampoTreinamentoPage;
+
+public class TesteCadastro extends BaseTest{
 
 	private CampoTreinamentoPage page;
 	
 	@Before
 	public void inicializa() {
-		System.setProperty("webdriver.gecko.driver", "C:\\drivers\\geckodriver\\0.30.0\\geckodriver.exe");
-
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
 		page = new CampoTreinamentoPage();
 	}
-	
-	@After
-	public void finaliza() {
-		killDriver();
-	}
-	
 
 	@Test
 	public void devePreencherOFormulario() {

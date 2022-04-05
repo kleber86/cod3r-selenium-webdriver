@@ -1,3 +1,4 @@
+package tests;
 import static core.DriverFactory.getDriver;
 import static core.DriverFactory.killDriver;
 import static org.junit.Assert.assertEquals;
@@ -14,6 +15,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import core.DSL;
+
 public class TesteCampoTreinamento {
 	private WebDriver driver;
 	private DSL dsl;
@@ -22,11 +25,6 @@ public class TesteCampoTreinamento {
 	public void inicializa() {
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/site/componentes.html");
 		dsl = new DSL();
-	}
-	
-	@After
-	public void finaliza() {
-		killDriver();
 	}
 	
 	@Test
