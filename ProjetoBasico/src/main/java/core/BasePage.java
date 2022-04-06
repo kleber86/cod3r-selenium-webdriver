@@ -107,6 +107,10 @@ public class BasePage {
 		clicarBotao(By.id(id));
 	}
 
+	public void clicarBotaoPorTexto(String nome) {
+		clicarBotao(By.xpath("//button[.='"+nome+"']"));
+	}
+
 	public String obterValueElemento(String id) {
 		return getDriver().findElement(By.id(id)).getAttribute("value");
 	}
