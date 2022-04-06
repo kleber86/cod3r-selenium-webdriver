@@ -17,6 +17,10 @@ public class ContasPage extends BasePage {
 	public String obterMensagemSucesso() {
 		return obterTexto(By.xpath("//div[@class='alert alert-success']"));
 	}
+	
+	public String obterMensagemErro() {
+		return obterTexto(By.xpath("//div[@class='alert alert-danger']"));
+	}
 
 	public void clicarAlteraConta(String string) {
 		obterCelula("Conta", string, "Ações", "tabelaContas")
