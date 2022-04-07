@@ -24,8 +24,8 @@ public class MovimentacaoTest extends BaseTest{
 	public void testInserirMovimentação() {
 		menuPage.acessarTelaInserirMovimentacao();
 		
-		mp.setDataMovimentacao("06/04/2022");
-		mp.setDataPagamento("06/04/2022");
+		mp.setDataMovimentacao(obterDataFormatada(new Date()));
+		mp.setDataPagamento(obterDataFormatada(new Date()));
 		mp.setDescricao("Movimentação Teste");
 		mp.setInteressado("Interessado Qualquer");
 		mp.setValor("123456");
