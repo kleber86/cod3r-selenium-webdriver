@@ -1,5 +1,6 @@
 package testes;
 
+import static core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static utils.DataUtils.obterDataFormatada;
@@ -11,6 +12,7 @@ import java.util.List;
 import org.junit.Test;
 
 import core.BaseTest;
+import core.DriverFactory;
 import pages.MenuPage;
 import pages.MovimentacaoPage;
 import utils.DataUtils;
@@ -72,5 +74,12 @@ public class MovimentacaoTest extends BaseTest{
 		List<String> erros = mp.obterErros();
 		assertTrue(erros.contains("Data da Movimentação deve ser menor ou igual à data atual"));
 		assertEquals(1, erros.size());
+	}
+	
+	@Test
+	public void testResumoMensal() {
+		menuPage.acessarTelaResumo();
+		
+		assertEquals("Seu Barriga - Extrato", getDriver().getTitle());
 	}
 }
