@@ -1,6 +1,5 @@
 package testes;
 
-import static core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static utils.DataUtils.obterDataFormatada;
@@ -9,21 +8,23 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import core.BaseTest;
-import core.DriverFactory;
 import pages.MenuPage;
 import pages.MovimentacaoPage;
 import utils.DataUtils;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MovimentacaoTest extends BaseTest{
 
 	private MenuPage menuPage = new MenuPage();
 	private MovimentacaoPage mp = new MovimentacaoPage();
 	
 	@Test
-	public void testInserirMovimentação() {
+	public void test1InserirMovimentação() {
 		menuPage.acessarTelaInserirMovimentacao();
 		
 		mp.setDataMovimentacao(obterDataFormatada(new Date()));
@@ -39,7 +40,7 @@ public class MovimentacaoTest extends BaseTest{
 	}
 	
 	@Test
-	public void testValidaCamposObrigatorios() {
+	public void test2ValidaCamposObrigatorios() {
 		menuPage.acessarTelaInserirMovimentacao();
 		
 		mp.salvar();
@@ -57,7 +58,7 @@ public class MovimentacaoTest extends BaseTest{
 	}
 	
 	@Test
-	public void testInserirMovimentacaoFutura() {
+	public void test3InserirMovimentacaoFutura() {
 		menuPage.acessarTelaInserirMovimentacao();
 		
 		Date dataFutura = DataUtils.obterDataComDiferencaDias(5);
@@ -74,12 +75,5 @@ public class MovimentacaoTest extends BaseTest{
 		List<String> erros = mp.obterErros();
 		assertTrue(erros.contains("Data da Movimentação deve ser menor ou igual à data atual"));
 		assertEquals(1, erros.size());
-	}
-	
-	@Test
-	public void testResumoMensal() {
-		menuPage.acessarTelaResumo();
-		
-		assertEquals("Seu Barriga - Extrato", getDriver().getTitle());
 	}
 }

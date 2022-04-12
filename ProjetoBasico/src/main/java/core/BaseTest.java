@@ -27,7 +27,7 @@ public class BaseTest extends BasePage{
 	public void inicializa() {
 		page.acessarTelaInicial();
 		
-		page.setEmail("contato@kleber.com.br");
+		page.setEmail("contato2@kleber.com.br");
 		page.setSenha("123456");
 		page.entrar();
 	}
