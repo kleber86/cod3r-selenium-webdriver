@@ -8,16 +8,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
 import core.BaseTest;
 import pages.MenuPage;
 import pages.MovimentacaoPage;
 import utils.DataUtils;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MovimentacaoTest extends BaseTest{
 
 	private MenuPage menuPage = new MenuPage();

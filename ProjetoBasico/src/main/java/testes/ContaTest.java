@@ -2,15 +2,12 @@ package testes;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
 import core.BaseTest;
 import pages.ContasPage;
 import pages.MenuPage;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ContaTest extends BaseTest{
 
 	MenuPage menuPage = new MenuPage();

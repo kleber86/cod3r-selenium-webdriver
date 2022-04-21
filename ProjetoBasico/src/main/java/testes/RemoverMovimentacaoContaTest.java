@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import core.BaseTest;
-import core.Propriedades;
 import pages.ContasPage;
 import pages.MenuPage;
 

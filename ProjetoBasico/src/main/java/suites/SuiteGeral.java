@@ -1,9 +1,12 @@
 package suites;
 
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import core.DriverFactory;
+import pages.LoginPage;
 import testes.ContaTest;
 import testes.MovimentacaoTest;
 import testes.RemoverMovimentacaoContaTest;
@@ -19,4 +22,19 @@ import testes.SaldoTest;
 	ResumoTest.class
 })
 public class SuiteGeral {
+
+	private static LoginPage page = new LoginPage();
+	
+	@BeforeClass
+	public static void reset() {
+		page.acessarTelaInicial();
+		
+		page.setEmail("contato2@kleber.com.br");
+		page.setSenha("123456");
+		page.entrar();
+		
+		page.resetar();
+		
+		DriverFactory.killDriver();
+	}
 }
