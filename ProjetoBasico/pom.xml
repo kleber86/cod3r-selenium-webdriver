@@ -21,7 +21,7 @@
 						<include>suites/*.java</include>
 					</includes>
 					<parallel>all</parallel>
-					<threadCount>4</threadCount>
+					<threadCount>1</threadCount>
 				</configuration>
 			</plugin>
 		</plugins>
